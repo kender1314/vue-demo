@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据代理</title>
+    <script type="text/javascript" src="../lib/vue.js"></script>
+</head>
+<body>
+    
+</body>
+</html>
+<script type="text/javascript">
+    Vue.config.productionTip = false; //设置为 false 以阻止 vue 在启动时生成生产提示。
+    let num1 = {x: 200};
+    let num2 = {y: 300};
+    Object.defineProperty(num2, "x", {
+        get(){
+            return num1.x;
+        },
+        set(value){
+            num1.x = value
+        }
+    })
+</script>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据绑定</title>
+    <script type="text/javascript" src="../lib/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <!--单向绑定可以用到任何标签的属性上，双向绑定只能用到表单类型的标签上（输入类型的标签：input,select...-->
+        <!--普通写法-->
+        单向绑定：<input type="text" v-bind:value="name"><br>
+        双向绑定：<input type="text" v-model:value="name"><br>
+        <!--简写-->
+        单向绑定简写：<input type="text" :value="name"><br>
+        双向绑定简写：<input type="text" v-model="name">
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    Vue.config.productionTip = false //设置为 false 以阻止 vue 在启动时生成生产提示。
+</script>
+<script type="text/javascript">
+    const v = new Vue({
+        // el: "#root",
+        // data: {
+        //     "name": "游戏开始"
+        // }
+        data() {
+            console.log("this->" +  this)
+            return {
+                "name": "游戏开始"
+            }
+        },
+    });
+    console.log(v);
+    //除了使用ele之外，还可以使用$mount执行插值语法，切这种方式更加灵活
+    setTimeout(() => {
+        v.$mount('#root');
+    }, 1000)
+</script>

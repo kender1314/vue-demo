@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件处理</title>
+    <script type="text/javascript" src="../lib/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <h1>你好，我是{{name}}</h1>
+        <!-- <button v-on:click="fun1">将名字替换成为：hhh</button> -->
+        <button @click="fun1">将名字替换成为：hhh</button>
+        <button @click="fun2($event, 'hejiang')">将名字替换成为：hejiang</button>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            'name': 'hj'
+        },
+        //methods方法中的函数不要使用箭头函数，否则this就不是vm了
+        methods: {
+            fun1(){
+                console.log(this === vm);
+                vm.name = 'hhh'
+            },
+            fun2(event, namec){
+                vm.name = namec
+            }
+        },
+    })
+</script>
