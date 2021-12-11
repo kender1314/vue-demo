@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="../lib/vue.js"></script>
+</head>
+<body>
+		<!-- 
+				深度监视：
+						(1).Vue中的watch默认不监测对象内部值的改变（一层）。
+						(2).配置deep:true可以监测对象内部值改变（多层）。
+				备注：
+						(1).Vue自身可以监测对象内部值的改变，但Vue提供的watch默认不可以！
+						(2).使用watch时根据数据的具体结构，决定是否采用深度监视。
+		 -->
+    <div id="root">
+        今天的天气非常<span>{{info}}</span><br/><br/>
+        今天的天气非常<span>{{isHost ? '炎热' : '凉爽'}}</span><br/><br/>
+        <button @click="weather">点击切换天气</button><br/><br/>
+        姓: <input type="text" v-model="fullName.firstName" /><br/><br/>
+        名: <input type="text" v-model="fullName.lastName" /><br/><br/>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    Vue.config.productionTip = false;
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            isHost: 'true',
+            fullName: {
+                firstName: '核减',
+                lastName: '大射手'
+            }
+        },  
+        computed: {
+            info(){
+                return this.isHost ? '炎热' : '凉爽';
+            }
+        },
+        methods: {
+            weather(){
+               this.isHost = !this.isHost; 
+            }
+        },
+        watch: {
+            isHost: {
+                immediate: true, //初始化的时候是否需要被触发
+                //isHost被修改的时候调用
+                handler(newValue, oldValue){
+                    console.log('isHost被修改了' + oldValue + '->' + newValue);
+                }
+            },
+            //监控fullName中值的变化
+            fullName: {
+                deep: true, //需要开启开关，才能检测到fullName变化
+                handler(newValue, oldValue) {
+                    console.log('fullName被修改了');
+                }
+            },
+            //监控fullName中firstName值的变化
+            'fullName.firstName': {
+                deep: true, //需要开启开关，才能检测到fullName变化
+                handler(newValue, oldValue) {
+                    setTimeout(() => {
+                        console.log('fullName被修改了' + oldValue + '->' + newValue);
+                    }, 1000)
+                }
+            }
+        }
+    });
+    
+</script>

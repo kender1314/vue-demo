@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="../lib/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        输入姓：<input type="text" v-model="firstName"><br/><br/>
+        输入名：<input type="text" v-model="lastName"><br/><br/>
+        <!-- 展示方法相关信息：<span>{{fullName}}</span> -->
+        展示全名：<span>{{fullName()}}</span>
+        展示全名：<span>{{fullName()}}</span>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    Vue.config.productionTip = false;
+    new Vue({
+        el: '#root',
+        data: {
+            'firstName': '和',
+            'lastName': '适'
+        },
+        methods: {
+            fullName(){
+                console.log("get会被调用n次，因为没有缓存！！！");
+                return this.firstName + "-" + this.lastName;
+            }
+        },
+    })
+</script>
